@@ -1,3 +1,8 @@
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+
 const heading = React.createElement('h1', {}, 'Hello Dojo!'); // This will return a object
 const subheading = React.createElement('h3', {}, 'Things I need to do:');
 const list = React.createElement('ul', {},
