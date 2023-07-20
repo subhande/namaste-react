@@ -2,18 +2,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+const elem = <span> React element</span>;
 
-const heading = React.createElement('h1', {}, 'Hello Dojo!'); // This will return a object
-const subheading = React.createElement('h3', {}, 'Things I need to do:');
-const list = React.createElement('ul', {},
-    [
-        React.createElement('li', {}, 'Learn React'),
-        React.createElement('li', {}, 'Climb Mt. Everest'),
-        React.createElement('li', {}, 'Run a marathon'),
-        React.createElement('li', {}, 'Feed the cats')
-    ]
-);
-const parent = React.createElement("div", { id: "parent" }, React.createElement("div", { id: "child" }, React.createElement("h1", {}, "Hello World")));
-const container = React.createElement('div', { id: "container" }, [heading, subheading, list, parent]);
+const Title = () => {
+    return <h1 className='head' tabIndex="5">{elem} Namaste React using JSX 🚀</h1>
+}
+
+const number = 10;
+
+// Component Composition - Composing multiple components together
+const HeadingComponent = () => {
+    return <div id="container">
+        <Title />
+        <h1 className="heading">Namaste React Functional Component</h1>
+        <h2>{number}</h2>
+    </div>
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(container); // This will covert the object to HTML and render it to the DOM
+
+root.render(<HeadingComponent />);

@@ -36,3 +36,11 @@ npx parcel build index.html
 - https://github.com/browserslist/browserslist
 
 
+## NPM Scripts
+
+After settting up npm scripts in package.json, we can run the following commands:
+
+```bash
+npm run start or npm start
+npm run build
+```
