@@ -44,3 +44,40 @@ After settting up npm scripts in package.json, we can run the following commands
 npm run start or npm start
 npm run build
 ```
+
+# Namaste Food
+
+/**
+ * Header
+ *  - Logo
+ *  - Nav Items
+ * Body
+ *  - Search
+ *  - Restaurant container
+ *     - Restaurant Card
+ *          - Image
+ *          - Name of Res, Start, Rating, cuisines, delivey time
+ * Footer
+ *  - Copyright
+ *  - Links
+ *  - Address
+ *  - Contact
+ */ 
+
+
+ ## Two types of Export / Import
+
+ ### Default Export/Import
+ ```
+    export default Component;
+    import Component from 'path';
+ ```
+### Named Export/Import
+ 
+ ```
+    export const Component; | export { Component1, Component2 };
+    import { Component } from 'path';
+
+ ```
+
+ - We can use one default export per file along with any number of named exports.
