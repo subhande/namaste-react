@@ -1,65 +1,84 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utils/mockData";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
   // State Variable - Super Powerful Variables
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
-  // Normal JS Variable
-  let defaultListOfRestaurants = [
-    {
-      info: {
-        id: "439189",
-        name: "Kanak Durga ",
-        cloudinaryImageId: "dnrzjcqjnhlshb4gzbzd",
-        locality: "Ghoradhara",
-        areaName: "Jhargram Locality",
-        costForTwo: "₹200 for two",
-        cuisines: ["Biryani", "Chinese", "Snacks"],
-        avgRating: 3.9,
-        deliveryTime: 22,
-      },
-    },
-    {
-      info: {
-        id: "521506",
-        name: "Kolkata Ashirwad Biryani",
-        cloudinaryImageId: "bn4ynfwb9jlwijhvytho",
-        locality: "Raghunatpur College More",
-        areaName: "Jhargram Locality",
-        costForTwo: "₹150 for two",
-        cuisines: ["Biryani", "North Indian"],
-        avgRating: 4.5,
-        deliveryTime: 22,
-      },
-    },
-  ];
-  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
-  return (
+  useEffect(() => {
+    fetchdata();
+  }, []);
+  const fetchdata = async () => {
+    const url =
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5753931&lng=88.47979029999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
+    const data = await fetch(url);
+    const response = await data.json();
+    let resturants =
+      response?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants;
+    resturants = resturants ? resturants : [];
+    console.log(resturants[0]);
+    setListOfRestaurants(resturants);
+    setFilteredRestaurants(resturants);
+  };
+
+  const filterData = (searchText) => {
+    if (searchText !== "") {
+      const filteredRestaurantsData = listOfRestaurants.filter((res) => {
+        return res.info.name.toLowerCase().includes(searchText.toLowerCase());
+      });
+      setFilteredRestaurants(filteredRestaurantsData);
+    } else {
+      setFilteredRestaurants(listOfRestaurants);
+    }
+  };
+
+  return listOfRestaurants.length === 0 ? (
     <div className="body">
       <div className="filter">
+        <button className="filter-btn">Top rated restaurants</button>
+      </div>
+      <Shimmer />
+    </div>
+  ) : (
+    <div className="body">
+      <div className="filter">
+        <div className="search">
+          <input
+            type="text"
+            className="search-box"
+            value={searchText}
+            onChange={(event) => {
+              setSearchText(event.target.value);
+              filterData(event.target.value);
+            }}
+          />
+          <button
+            className="search-btn"
+            onClick={() => {
+              filterData(searchText);
+            }}
+          >
+            Search
+          </button>
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
             const filteredList = listOfRestaurants.filter((res) => {
               return res.info.avgRating > 4;
             });
-            setListOfRestaurants(filteredList);
+            setFilteredRestaurants(filteredList);
           }}
         >
           Top rated restaurants
         </button>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            setListOfRestaurants(resList);
-          }}
-        >
-          Show All
-        </button>
       </div>
       <div className="res-container">
-        {listOfRestaurants.map((restaurant) => (
+        {filteredRestaurants.map((restaurant) => (
           <RestaurantCard key={restaurant.info.id} resData={restaurant} />
         ))}
       </div>
