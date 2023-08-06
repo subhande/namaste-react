@@ -6,10 +6,6 @@ const User = (props) => {
   const [count, setCount] = useState(0);
   const { name, location, contact } = props;
 
-  useEffect(() => {
-    
-  }, []);
-
   return (
     <div className="user-card">
       <h1>Count: {count}</h1>

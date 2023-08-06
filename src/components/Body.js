@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   // State Variable - Super Powerful Variables
@@ -36,6 +37,14 @@ const Body = () => {
       setFilteredRestaurants(listOfRestaurants);
     }
   };
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) {
+    return (
+      <div>
+        <h1> Looks like you are offline. Please check your Internet. </h1>
+      </div>
+    );
+  }
 
   return listOfRestaurants.length === 0 ? (
     <div className="body">
@@ -80,7 +89,10 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filteredRestaurants.map((restaurant) => (
-          <Link to={"restaurants/" + restaurant.info.id} key={restaurant.info.id}>
+          <Link
+            to={"restaurants/" + restaurant.info.id}
+            key={restaurant.info.id}
+          >
             <RestaurantCard key={restaurant.info.id} resData={restaurant} />
           </Link>
         ))}
