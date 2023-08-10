@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-
-useState
 const useOnlineStatus = () => {
   const [onlineStatus, setOnlineStatus] = useState(navigator.onLine);
 
