@@ -19,8 +19,10 @@
   "homepage": "https://github.com/subhande/namaste-react#readme",
   "devDependencies": {
     "parcel": "^2.9.3",
+    "postcss": "^8.4.27",
     "prettier": "^3.0.0",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "tailwindcss": "^3.3.3"
   },
   "dependencies": {
     "react": "^18.2.0",
