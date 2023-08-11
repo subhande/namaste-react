@@ -15,5 +15,4 @@ const useRestaurantMenu = (_resid) => {
   return resInfo;
 };
 
-
 export default useRestaurantMenu;

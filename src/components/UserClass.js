@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 class UserClass extends React.Component {
   constructor(props) {
@@ -39,6 +40,13 @@ class UserClass extends React.Component {
         <button onClick={() => this.setState({ count: this.state.count + 1 })}>
           Count Increase
         </button> */}
+        <div>
+          <UserContext.Consumer>
+            {({ loggedInUser }) => (
+              <h1 className="text-xl font-bold">{loggedInUser}</h1>
+            )}
+          </UserContext.Consumer>
+        </div>
 
         <h2>Name: {name}</h2>
         <h3>Location: {location}</h3>

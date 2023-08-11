@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import { useContext, useEffect, useState } from "react";
+import RestaurantCard, { WithPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { RESTAURANT_URL } from "../utils/constants";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   // State Variable - Super Powerful Variables
@@ -10,19 +12,19 @@ const Body = () => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
 
+  const RestaurantCardPromoted = WithPromotedLabel(RestaurantCard);
+
   useEffect(() => {
     fetchdata();
   }, []);
   const fetchdata = async () => {
-    const url =
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5753931&lng=88.47979029999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
-    const data = await fetch(url);
+    const data = await fetch(RESTAURANT_URL);
     const response = await data.json();
     const cards = response?.data?.cards;
     let resturants = cards.filter(
       (card) => card?.card?.card?.id === "restaurant_grid_listing"
     );
-    console.log(resturants);
+    // console.log(resturants);
     resturants =
       resturants[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
     // let resturants =
@@ -52,6 +54,8 @@ const Body = () => {
       </div>
     );
   }
+
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   return listOfRestaurants.length === 0 ? (
     <div className="body">
@@ -83,7 +87,7 @@ const Body = () => {
           </button>
         </div>
         <div className="search m-4 p-4 flex items-center">
-          <button
+          {/* <button
             className="filter-btn px-4 py-2 bg-gray-100 m-4 rounded-lg"
             onClick={() => {
               const filteredList = listOfRestaurants.filter((res) => {
@@ -93,7 +97,9 @@ const Body = () => {
             }}
           >
             Top rated restaurants
-          </button>
+          </button> */}
+          <label className="">User Name: </label>
+          <input className="border border-black" value={loggedInUser} onChange={(e) => setUserName(e.target.value)}></input>
         </div>
       </div>
       <div className="res-container flex flex-wrap">
@@ -102,7 +108,18 @@ const Body = () => {
             to={"restaurants/" + restaurant.info.id}
             key={restaurant.info.id}
           >
-            <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+            {
+              /** if the restaurant is promoted then add a promoted label to it */
+
+              restaurant.info.promoted === undefined ? (
+                <RestaurantCardPromoted
+                  key={restaurant.info.id}
+                  resData={restaurant}
+                />
+              ) : (
+                <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+              )
+            }
           </Link>
         ))}
       </div>

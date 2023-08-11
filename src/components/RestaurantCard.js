@@ -2,8 +2,14 @@ import { CDN_URL } from "../utils/constants";
 
 const RestaurantCard = (props) => {
   // console.log(props);
-  const { cloudinaryImageId, name, avgRating, cuisines, costForTwo, deliveryTime } =
-    props.resData.info;
+  const {
+    cloudinaryImageId,
+    name,
+    avgRating,
+    cuisines,
+    costForTwo,
+    deliveryTime,
+  } = props.resData.info;
 
   return (
     <div className="res-card w-64 h-100 min-h-max m-4 p-4 rounded-lg bg-gray-100 hover:bg-gray-200">
@@ -19,6 +25,21 @@ const RestaurantCard = (props) => {
       <h4>{deliveryTime} minutes</h4>
     </div>
   );
+};
+
+// Higher order component
+
+// input - RestaurantCard ==> output - RestaurantCardPromoted
+
+export const WithPromotedLabel = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <div>
+        <label className="absolute bg-black text-white m-2 p-2 rounded-lg">Promoted</label>
+        <RestaurantCard {...props}/>
+      </div>
+    );
+  };
 };
 
 export default RestaurantCard;
