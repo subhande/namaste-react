@@ -81,3 +81,16 @@ npm run build
  ```
 
  - We can use one default export per file along with any number of named exports.
+
+
+ ## 2 types routing in web apps
+ - Client side rendering
+ - Server side rendering
+
+## Redux Toolkit
+- Install @reduxjs/toolkit and react-redux
+- Build our store
+- Connect out store to our app
+- Slice (cartSlice)
+- dispatch(action)
+- Seclector
