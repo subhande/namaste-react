@@ -94,3 +94,37 @@ npm run build
 - Slice (cartSlice)
 - dispatch(action)
 - Seclector
+
+## Type of testing (developer)
+- Unit Testing
+- Integration Testing
+- End to End Testing - e2e testing
+
+Tetsing Library
+- React Testing Library - https://testing-library.com/docs/react-testing-library/intro/
+   - It uses Jest under the hood
+   - Jest - https://jestjs.io/docs/getting-started
+   ```
+   npm install --save-dev @testing-library/react
+   npm install --save-dev jest
+   npm install --save-dev babel-jest @babel/core @babel/preset-env
+   ```
+- Cypress - https://docs.cypress.io/guides/overview/why-cypress
+
+
+## Setting up Testing in our app
+- Install React Testing Library
+- Install Jest
+- Install Babel dependencies
+- Configure Babel
+- Configure Parcel Config file to disable default babel transpilation
+- Jest configuration
+- Install jsdom library
+- Install @babel/preset-react - to make jsx work in test cases
+- Include @babel/preset-react inside babel config
+- Install @testing-library/jest-dom - to make jest dom assertions work
+
+
+Test Files
+- Foldername: __tests__
+- Filename: filename.test.js or filename.spec.js

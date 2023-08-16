@@ -39,7 +39,9 @@ const Body = () => {
   const filterData = (searchText) => {
     if (searchText !== "") {
       const filteredRestaurantsData = listOfRestaurants.filter((res) => {
-        return res.info.name.toLowerCase().includes(searchText.toLowerCase());
+        const name_n_desc =
+          res.info.name.toLowerCase() + res.info.cuisines.join(", ").toLowerCase();
+        return name_n_desc.includes(searchText.toLowerCase());
       });
       setFilteredRestaurants(filteredRestaurantsData);
     } else {
@@ -70,6 +72,7 @@ const Body = () => {
         <div className="search m-4 p-4">
           <input
             type="text"
+            data-testid="searchInput"
             className="search-box border border-solid border-black rounded-md"
             value={searchText}
             onChange={(event) => {
@@ -87,19 +90,23 @@ const Body = () => {
           </button>
         </div>
         <div className="search m-4 p-4 flex items-center">
-          {/* <button
+          <button
             className="filter-btn px-4 py-2 bg-gray-100 m-4 rounded-lg"
             onClick={() => {
               const filteredList = listOfRestaurants.filter((res) => {
-                return res.info.avgRating > 4;
+                return res.info.avgRating > 4.4;
               });
               setFilteredRestaurants(filteredList);
             }}
           >
             Top rated restaurants
-          </button> */}
+          </button>
           <label className="">User Name: </label>
-          <input className="border border-black" value={loggedInUser} onChange={(e) => setUserName(e.target.value)}></input>
+          <input
+            className="border border-black"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          ></input>
         </div>
       </div>
       <div className="res-container flex flex-wrap">
